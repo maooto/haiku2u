@@ -1,0 +1,460 @@
+# haiku2u content file — edit me freely!
+# One row per candidate line:  theme,stage,line
+#   stage 1 = first line of the haiku  (5 syllables)
+#   stage 2 = second line               (7 syllables)
+#   stage 3 = third line                (5 syllables)
+# A theme needs at least 3 lines per stage to appear in the game.
+# Give a theme MORE than 3 lines per stage and the game will pick 3 at random.
+# Lines may contain commas; only the first two commas split the row.
+# Check your syllable counts with:  npm run check:syllables
+theme,stage,line
+peace,1,Still water at dawn
+peace,1,The valley exhales
+peace,1,No wind on the reeds
+peace,2,The river forgets its haste
+peace,2,Mountains rest on folded hands
+peace,2,Even the herons are still
+peace,3,My breath joins the mist
+peace,3,Nothing left to guard
+peace,3,One bell then silence
+fear,1,A branch snaps unseen
+fear,1,Cold creeps up the spine
+fear,1,The dark between trees
+fear,2,Shadows grow teeth in the dusk
+fear,2,The heart drums against its cage
+fear,2,What waits where the light cannot
+fear,3,Still I take one step
+fear,3,Dawn will name the shapes
+fear,3,The owl knows my name
+loyalty,1,One flag in the storm
+loyalty,1,The dog waits at dusk
+loyalty,1,Roots hold the steep bank
+loyalty,2,Through winter the pine stays green
+loyalty,2,A vow carved deep into oak
+loyalty,2,The river returns each spring
+loyalty,3,I will not let go
+loyalty,3,Ash remembers flame
+loyalty,3,Beside you the road
+determination,1,Water cuts the stone
+determination,1,One seed splits the rock
+determination,1,The climb starts in rain
+determination,2,A thousand small blows then light
+determination,2,The salmon leaps the white falls
+determination,2,Roots break pavement given years
+determination,3,I begin again
+determination,3,The summit will wait
+determination,3,One more step. One more
+endurance,1,Old stone wears the wind
+endurance,1,The oak counts its scars
+endurance,1,Winter's longest night
+endurance,2,Tides have carved this cliff for years
+endurance,2,The moss outlives the tempest
+endurance,2,Bamboo bends and does not break
+endurance,3,Morning finds me here
+endurance,3,Worn smooth never gone
+endurance,3,The root holds the hill
+solitude,1,One boat gray water
+solitude,1,A single crane calls
+solitude,1,My shadow and I
+solitude,2,No footprints cross this white field
+solitude,2,Smoke rises from one far hut
+solitude,2,Silence pours into the bowl
+solitude,3,Alone not lonely
+solitude,3,The moon sits with me
+solitude,3,Enough — this one cup
+community,1,Lanterns line the path
+community,1,Many hands one rope
+community,1,Smoke from twenty hearths
+community,2,Geese write their V across dusk
+community,2,Each beam raised by many backs
+community,2,The harvest songs overlap
+community,3,No one eats alone
+community,3,The long table waits
+community,3,We carry it home
+friendship,1,Two cups one teapot
+friendship,1,Footprints side by side
+friendship,1,A laugh splits the cold
+friendship,2,Old pines lean on each other
+friendship,2,Words are not needed to sit
+friendship,2,Your silence understands mine
+friendship,3,Stay for one more pour
+friendship,3,The gate is open
+friendship,3,Warmth shared is doubled
+family,1,Smoke from the hearth climbs
+family,1,Small boots by the door
+family,1,Her hands knead the dough
+family,2,The sparrows feed their loud nest
+family,2,Old roots new branches one tree
+family,2,Grandmother hums the same song
+family,3,We fit all of us
+family,3,Home is where they wait
+family,3,Supper calls us in
+responsibility,1,The lamp must be lit
+responsibility,1,Keys weigh on the belt
+responsibility,1,The flock watches me
+responsibility,2,Someone must carry the light
+responsibility,2,The bridge is mine to repair
+responsibility,2,Rain or not the fields need me
+responsibility,3,I don't set it down
+responsibility,3,The watch is not done
+responsibility,3,So I rise early
+truth,1,Clear ice shows the stones
+truth,1,The mirror lake waits
+truth,1,Light through clean water
+truth,2,What the bones know the mouth hides
+truth,2,Still water does not flatter
+truth,2,The plain stone outlasts the paint
+truth,3,Say it and be light
+truth,3,The root is the root
+truth,3,Dawn hides no edges
+deception,1,Fog wears the lake's face
+deception,1,Bright lures hide their hooks
+deception,1,The fox grins then bows
+deception,2,Sweet words over shallow roots
+deception,2,The mask smiles while the eyes count
+deception,2,Mirrors tilted at the sun
+deception,3,The ice was paper
+deception,3,Trust spent like false coin
+deception,3,Fog lifts. Bare branches
+honesty,1,The scale tips truly
+honesty,1,An open ledger
+honesty,1,Calluses not paint
+honesty,2,The cracked bowl shown not hidden
+honesty,2,I name my harvest plainly
+honesty,2,What I owe I say out loud
+honesty,3,Sleep comes easily
+honesty,3,My word my full weight
+honesty,3,The door needs no lock
+desire,1,The moth and the flame
+desire,1,Ripe plums out of reach
+desire,1,Thirst in sight of rain
+desire,2,The tide reaches for the moon
+desire,2,Roots crawl for water all night
+desire,2,One lantern pulls all the moths
+desire,3,Hunger sharpens sight
+desire,3,Always almost mine
+desire,3,Still my hand reaches
+duty,1,The gate must be watched
+duty,1,Dawn drum calls me up
+duty,1,The road wears my boots
+duty,2,I plant for those I won't meet
+duty,2,The oath outlives the soldier
+duty,2,Someone's lamp must stay burning
+duty,3,So I stand my post
+duty,3,Rest when the field rests
+duty,3,The work is the prayer
+memory,1,Pressed leaves in a book
+memory,1,Her scent on cold wind
+memory,1,Footsteps in old snow
+memory,2,The empty chair still leans back
+memory,2,Echoes wear the canyon smooth
+memory,2,The scar recalls the sharp day
+memory,3,Some doors never shut
+memory,3,I taste it again
+memory,3,Old light still arrives
+courage,1,Small bird vast tempest
+courage,1,The first foot on ice
+courage,1,A matchstick at night
+courage,2,Knees shake; the step happens still
+courage,2,The sprout dares the late spring frost
+courage,2,Fear walks with me not ahead
+courage,3,I open the door
+courage,3,Trembling but upright
+courage,3,The flame holds its ground
+hope,1,Green through the burnt field
+hope,1,One star in the storm
+hope,1,A bud in the frost
+hope,2,Even ash feeds the next spring
+hope,2,Far off the rain has ended
+hope,2,The seed believes in the sun
+hope,3,Morning will arrive
+hope,3,I save one dry match
+hope,3,Light leans to us all
+impermanence,1,Petals on the stream
+impermanence,1,Dew on spider silk
+impermanence,1,Sandcastles at noon
+impermanence,2,The moon rents, it does not own
+impermanence,2,Snowmen kneel into the thaw
+impermanence,2,Smoke writes, the wind erases
+impermanence,3,Hold it loosely now
+impermanence,3,Already farewell
+impermanence,3,Beautiful brief gone
+grief,1,Rain fills her teacup
+grief,1,The half-empty bed
+grief,1,Salt on my own lips
+grief,2,The willow learned how to weep
+grief,2,His coat still hangs by the door
+grief,2,Winter stays long in some rooms
+grief,3,I water the stone
+grief,3,The ache is the love
+grief,3,Spring will be heavy
+joy,1,Puddles and bare feet
+joy,1,The kite tugs my hand
+joy,1,First plum of summer
+joy,2,Laughter spills over the wall
+joy,2,The dog runs for the running
+joy,2,Sun warms the back of my neck
+joy,3,I forget my age
+joy,3,More says the whole heart
+joy,3,Today is enough
+love,1,Two spoons left to dry
+love,1,Her laugh in my chest
+love,1,Tea poured before asked
+love,2,The vine and the trellis hold
+love,2,I learn the weather of you
+love,2,Home is a person mostly
+love,3,Stay. The rice is warm
+love,3,My coat your shoulders
+love,3,Even silence shared
+loss,1,One glove in the snow
+loss,1,The swing still moving
+loss,1,A key to no door
+loss,2,The orchard gave its last fruit
+loss,2,Where the tree stood so much sky
+loss,2,The song ends mid-verse and stays
+loss,3,I keep the empty
+loss,3,Lighter and less whole
+loss,3,Echo then quiet
+time,1,The candle shortens
+time,1,Rings inside the oak
+time,1,Sand through the thin waist
+time,2,The river is never twice
+time,2,Children wear their fathers' coats
+time,2,Noon leans into afternoon
+time,3,Spend it like water
+time,3,Even stones grow old
+time,3,Now. And now. And now
+change,1,Skins left on branches
+change,1,Green turns to copper
+change,1,The river moves house
+change,2,What was map is now water
+change,2,The caterpillar dissolves
+change,2,New banks for the same current
+change,3,I outgrow my name
+change,3,Turn the field under
+change,3,Doors where walls had been
+home,1,Smoke I recognize
+home,1,The one creaking stair
+home,1,Hills shaped like my sleep
+home,2,The kettle knows my footsteps
+home,2,Even the dust here is mine
+home,2,The road bends to one lit door
+home,3,I unclench at last
+home,3,The latch lifts easy
+home,3,Here my bones settle
+journey,1,Dust on my sandals
+journey,1,The map ends; I don't
+journey,1,Far bells unknown town
+journey,2,Each pass reveals one more pass
+journey,2,I trade my roof for the stars
+journey,2,The road eats months like berries
+journey,3,Walking is the home
+journey,3,Blisters then strong soles
+journey,3,Arrive then begin
+war,1,Crows above the field
+war,1,Rust where wheat once stood
+war,1,Drums drown the birdsong
+war,2,The river ran a wrong red
+war,2,Boys wear their grandfathers' ghosts
+war,2,No side wins the burned harvest
+war,3,The widow plants on
+war,3,Smoke where songs had been
+war,3,Let the grass return
+mercy,1,The drawn blade returns
+mercy,1,Rain on the parched field
+mercy,1,The trap left open
+mercy,2,The hawk lets the rabbit pass
+mercy,2,A debt erased with one nod
+mercy,2,Strong hands choosing to be soft
+mercy,3,Both of us walk free
+mercy,3,The scale set aside
+mercy,3,Softness is not weak
+wisdom,1,The old turtle waits
+wisdom,1,Gray in the pine's beard
+wisdom,1,The well runs deepest
+wisdom,2,The mountain rarely speaks first
+wisdom,2,Ask the river how to yield
+wisdom,2,Old scars teach the new soldiers
+wisdom,3,Listen twice speak once
+wisdom,3,The empty cup fills
+wisdom,3,Knowing when to stop
+youth,1,Green wood bends laughing
+youth,1,Scraped knees full pockets
+youth,1,The colt tests the fence
+youth,2,Summer believes it is long
+youth,2,New leaves drunk on their first rain
+youth,2,The whole map not yet unrolled
+youth,3,Run before you ache
+youth,3,Dawn tastes of always
+youth,3,The sap rises fast
+age,1,Frost in my eyebrows
+age,1,The stairs grow taller
+age,1,Slow tea long shadows
+age,2,Trees I planted now shade me
+age,2,My hands remember the work
+age,2,Winter sun is still the sun
+age,3,Ripeness then sweetness
+age,3,Slow steps see the most
+age,3,The late light is gold
+regret,1,The unsent letter
+regret,1,Doors I walked right past
+regret,1,Salt sown by my hand
+regret,2,The word I swallowed still burns
+regret,2,Springs I left unplanted ache
+regret,2,The boat I watched from the shore
+regret,3,If is a cold room
+regret,3,Still dawn offers more
+regret,3,I write the letter
+forgiveness,1,The fist becomes palm
+forgiveness,1,Rain rinses the blade
+forgiveness,1,The dog forgets first
+forgiveness,2,I set the heavy sack down
+forgiveness,2,The bridge rebuilt plank by plank
+forgiveness,2,Old wounds aired heal in sunlight
+forgiveness,3,Lighter both of us
+forgiveness,3,At last the knot slips
+forgiveness,3,We drink the same tea
+freedom,1,The cage door open
+freedom,1,Wind owns no fences
+freedom,1,Unbridled the colt
+freedom,2,The kite string cut — and then sky
+freedom,2,No bell decides my morning
+freedom,2,The river ignores the map
+freedom,3,I answer to dawn
+freedom,3,Wide is the new word
+freedom,3,My feet choose the path
+fate,1,Threads spun before birth
+fate,1,Rivers obey slopes
+fate,1,The arrow mid-flight
+fate,2,The acorn carries the oak
+fate,2,Stars were posted long ago
+fate,2,The river knows its ocean
+fate,3,Still I hold the oar
+fate,3,What comes I will meet
+fate,3,The path was waiting
+patience,1,Moss takes the long road
+patience,1,The heron, statue
+patience,1,Tea steeps; I don't stir
+patience,2,The bamboo spends years on roots
+patience,2,Fruit ripens at its own pace
+patience,2,Stone steps worn by soft slippers
+patience,3,The bud will not rush
+patience,3,I let the pot steep
+patience,3,Slowness is a door
+silence,1,Snow says it softly
+silence,1,Between two bell strikes
+silence,1,The pond holds its tongue
+silence,2,What the fog does to the town
+silence,2,Even my thoughts take off shoes
+silence,2,The loudest part of the shrine
+silence,3,Listen — the nothing
+silence,3,Full the empty air
+silence,3,I stop being noise
+dawn,1,The east lifts its lid
+dawn,1,First light on wet grass
+dawn,1,Roosters draft the day
+dawn,2,Night folds its dark laundry up
+dawn,2,Gold spills over the ridge top
+dawn,2,The kettle and the sky sing
+dawn,3,Begin says the light
+dawn,3,Yesterday released
+dawn,3,The page is empty
+dusk,1,The sun kneels westward
+dusk,1,Amber on the eaves
+dusk,1,Bats stitch the warm air
+dusk,2,Day signs its name in long shade
+dusk,2,The fields exhale their stored heat
+dusk,2,Lamps bloom one by one in town
+dusk,3,The day lays down work
+dusk,3,Stars clock in early
+dusk,3,All roads point to home
+autumn,1,The maple lets go
+autumn,1,Geese audit the sky
+autumn,1,Smoke and apple air
+autumn,2,The harvest moon weighs the fields
+autumn,2,Gold leaves spend themselves freely
+autumn,2,Frost sharpens its first needles
+autumn,3,Abundance then rest
+autumn,3,The barn breathes slowly
+autumn,3,Letting go is ripe
+spring,1,Mud sweet on the boots
+spring,1,The stream finds its voice
+spring,1,Buds count to themselves
+spring,2,Green riots out of the thaw
+spring,2,Swallows rebuild the old eaves
+spring,2,The orchard holds its pink breath
+spring,3,Everything leans up
+spring,3,The world tries again
+spring,3,Small fierce and growing
+rain,1,Clouds wring out their gray
+rain,1,Drums on the tin roof
+rain,1,The lane turns to glass
+rain,2,The garden drinks past its fill
+rain,2,Frogs hold parliament at dusk
+rain,2,The river grows new muscles
+rain,3,Everything smells green
+rain,3,Eaves count the slow drops
+rain,3,Washed the world widens
+snow,1,The world in draft form
+snow,1,Roofs hushed under white
+snow,1,Fat flakes slow descent
+snow,2,Pines shoulder their white burdens
+snow,2,Footsteps vanish behind me
+snow,2,The pond seals its bright letter
+snow,3,Cold and yet a gift
+snow,3,The quiet deepens
+snow,3,Blank page by morning
+wind,1,The grass bows in waves
+wind,1,Doors argue softly
+wind,1,Pines comb the long gusts
+wind,2,Unseen yet it moves the world
+wind,2,The banners learn their grammar
+wind,2,It carries seeds and rumors
+wind,3,It tells where it's been
+wind,3,The chimes spend all night
+wind,3,Let it comb me too
+shadow,1,Short at noon then long
+shadow,1,The cat owns the shade
+shadow,1,Ink spilled by the pines
+shadow,2,Where light is I am also
+shadow,2,The mountain wears its evening
+shadow,2,Faithful the dark twin follows
+shadow,3,Proof that I stood here
+shadow,3,Cool rooms in the glare
+shadow,3,The light's quiet cost
+light,1,Gold pours through the slats
+light,1,Dust motes made of suns
+light,1,The pond doubles dawn
+light,2,One candle argues with night
+light,2,It asks nothing and gives all
+light,2,Windows harvest the morning
+light,3,Cracks still let it in
+light,3,Shadow proves its work
+light,3,Lift your face; it's free
+harmony,1,Frogs join the chorus
+harmony,1,Rain keeps the brook's time
+harmony,1,Wind chimes in accord
+harmony,2,Each voice leaves room for the next
+harmony,2,The geese agree on their V
+harmony,2,Stones set just so in the stream
+harmony,3,Nothing is too loud
+harmony,3,The whole field one song
+harmony,3,I tune myself down
+dreams,1,The pillow's far lands
+dreams,1,Doors open in sleep
+dreams,1,I fly without wings
+dreams,2,The night plants what day buried
+dreams,2,In sleep the mute fish all sing
+dreams,2,Maps sketched in vanishing ink
+dreams,3,I wake with one seed
+dreams,3,Morning steals the rest
+dreams,3,Some doors stay open
+rebirth,1,Green from the stump's edge
+rebirth,1,The snake leaves its skin
+rebirth,1,Ash then bright lichen
+rebirth,2,The burned hill wears new velvet
+rebirth,2,What winter buried springs up
+rebirth,2,The moon rehearses return
+rebirth,3,Begin me again
+rebirth,3,The old name burns off
+rebirth,3,First breath found again

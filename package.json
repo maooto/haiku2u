@@ -1,0 +1,19 @@
+{
+  "name": "haiku2u",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A meditative haiku-composing browser game inspired by Ghost of Tsushima, with Bluetooth gamepad support.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check:syllables": "node scripts/check-syllables.mjs"
+  },
+  "dependencies": {
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.0"
+  }
+}

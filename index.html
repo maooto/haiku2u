@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>haiku2u — a moment of stillness</title>
+    <meta name="description" content="Compose a haiku over a living vista. A meditative browser game inspired by Ghost of Tsushima. Gamepad supported." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;circle cx='50' cy='50' r='38' fill='%23c43d2e'/&gt;&lt;/svg&gt;" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <!-- UI overlay (built/managed by src/ui.js) -->
+      <div id="overlay">
+        <div id="dot-labels"></div>
+        <div id="poem-tracker"></div>
+        <div id="syllable-hint"></div>
+        <div id="theme-card" class="card hidden"></div>
+        <div id="poem-card" class="card hidden"></div>
+        <div id="title-screen">
+          <div class="title-jp">俳句</div>
+          <div class="title-en">haiku<span class="title-2u">2u</span></div>
+          <div class="title-sub">a moment of stillness</div>
+          <div class="title-prompt">press any key — or any button on your controller</div>
+        </div>
+        <div id="toast" class="hidden"></div>
+        <div id="hint-bar" class="hidden"></div>
+      </div>
+
+      <!-- Kurosawa mode grain + vignette -->
+      <div id="grain" class="hidden"></div>
+      <div id="vignette"></div>
+
+      <!-- full-screen fade -->
+      <div id="fader"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
