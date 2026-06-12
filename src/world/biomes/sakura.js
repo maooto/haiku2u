@@ -166,6 +166,8 @@ export default {
       swirl: 0.18,
       center: [microC.x + 0.7, microY + 1.1, microC.z + 0.3],
       box: [2.4, 1.6, 2.4],
+      nearFade: [0.06, 0.22], // these live right in front of the lens
+      maxScale: 16,
     });
 
     // ----- camera stations -----

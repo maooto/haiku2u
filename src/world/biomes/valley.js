@@ -22,7 +22,9 @@ export default {
       h += bank * 5.5;
       h += fbm(x * 0.011 + 3.7, z * 0.011 - 1.2, 4) ** 1.4 * 30 * smooth(14, 80, d);
       h += smooth(140, 300, d) * 60; // valley walls
-      h += 13 * gauss(x, z, 80, 28, 42); // the meditation bluff
+      // the meditation bluff: domed to the east, dropping away sharply
+      // on its river-facing side so the seat truly overlooks the water
+      h += 13 * gauss(x, z, 80, 28, 42) * smooth(46, 62, x);
       return h;
     };
 
@@ -133,11 +135,11 @@ export default {
     // rocks: a riffle mid-river plus scattered bank stones
     const rockGeo = kit.rockGeo({ color: '#857d72' });
     const riffleRocks = [
-      { x: 16, z: 53, y: -0.45, s: 1.5 },
-      { x: 19.5, z: 56, y: -0.2, s: 1.1 },
-      { x: 14, z: 58, y: -0.6, s: 1.9 },
-      { x: 21.5, z: 60.5, y: 0.05, s: 0.8 },
-      { x: 17.5, z: 62, y: -0.35, s: 1.3 },
+      { x: 15, z: 14, y: -0.45, s: 1.5 },
+      { x: 18.5, z: 17, y: -0.2, s: 1.1 },
+      { x: 13, z: 19, y: -0.6, s: 1.9 },
+      { x: 20.5, z: 21.5, y: 0.05, s: 0.8 },
+      { x: 16.5, z: 23, y: -0.35, s: 1.3 },
     ];
     kit.scatter(rockGeo, {
       count: riffleRocks.length + 36,
@@ -187,7 +189,7 @@ export default {
       seatPos,
       [
         { pos: new THREE.Vector3(-50, kit.heightAt(-55, 4) + 7, 2) }, // maple grove + torii across the river
-        { pos: new THREE.Vector3(17.5, 0.7, 57.5) }, // the riffle
+        { pos: new THREE.Vector3(16.5, 0.6, 19) }, // the riffle, in clear view below the bluff
         { pos: new THREE.Vector3(-88, kit.heightAt(-88, 98) + 9, 98) }, // golden grove downstream
       ],
       { fov: 40, dotScale: 2.4 }

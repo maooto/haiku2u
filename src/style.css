@@ -266,7 +266,7 @@ html, body {
 
 #hint-bar {
   position: absolute;
-  bottom: 4.5vh;
+  top: 4.5vh;
   right: 4vw;
   font-size: clamp(0.8rem, 1.4vw, 0.95rem);
   letter-spacing: 0.14em;

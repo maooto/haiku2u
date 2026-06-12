@@ -2,10 +2,8 @@
 // URL params also work: ?biome=valley|coast|sakura  ?theme=peace  ?skipIntro=1  ?mono=1
 
 export function installDebug(api) {
-  window.__game = {
-    ...api,
-    fakePad: installFakeGamepad,
-  };
+  // Object.assign onto api keeps its getters live (a spread would freeze them)
+  window.__game = Object.assign(api, { fakePad: installFakeGamepad });
 }
 
 export function urlOptions() {

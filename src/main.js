@@ -75,7 +75,14 @@ buildWorld(opts.biome);
 
 // ---------------------------------------------------------------- helpers
 
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+// game-time scheduler: waits advance with the loop (and with __game.tick),
+// so the game stays coherent in hidden tabs and under manual stepping
+let gameTime = 0;
+const waiters = [];
+const wait = (ms) =>
+  new Promise((r) => {
+    waiters.push({ at: gameTime + ms / 1000, r });
+  });
 const waitForSelect = () => new Promise((r) => (selectWaiter = r));
 
 function selectHint() {
@@ -247,9 +254,9 @@ start();
 // ---------------------------------------------------------------- loop
 
 const clock = new THREE.Clock();
-function tick() {
-  requestAnimationFrame(tick);
-  const dt = Math.min(clock.getDelta(), 0.05);
+
+function step(dt) {
+  gameTime += dt;
   input.update(dt);
 
   if (input.consumeMono()) {
@@ -277,15 +284,39 @@ function tick() {
     input.consumeSelect(); // drain stale presses between states
   }
 
+  // release any due game-time waits
+  for (let i = waiters.length - 1; i >= 0; i--) {
+    if (waiters[i].at <= gameTime) {
+      const { r } = waiters.splice(i, 1)[0];
+      r();
+    }
+  }
+
+  ui.update(dt);
   rig.update(dt);
   world?.update(dt);
   renderer.render(scene, camera);
+}
+
+function tick() {
+  requestAnimationFrame(tick);
+  step(Math.min(clock.getDelta(), 0.05));
 }
 tick();
 
 // ---------------------------------------------------------------- debug
 
 installDebug({
+  // advance the game deterministically (works even in hidden tabs where rAF stalls)
+  async tick(seconds = 1, dtStep = 1 / 30) {
+    clock.getDelta(); // drain real elapsed time so the next rAF doesn't double-step
+    const n = Math.ceil(seconds / dtStep);
+    for (let i = 0; i < n; i++) {
+      step(dtStep);
+      await Promise.resolve(); // let awaited game logic continue between steps
+    }
+    return state;
+  },
   get state() {
     return state;
   },
@@ -297,6 +328,28 @@ installDebug({
   },
   skipIntro() {
     rig.skipPath();
+  },
+  composeInfo() {
+    if (!compose) return null;
+    return compose.st.dots.map((d, i) => {
+      const f = rig.focusOf(d.pos, {});
+      return { line: compose.lines[i], angle: +f.angle.toFixed(4), x: Math.round(f.x), y: Math.round(f.y), behind: f.behind, dotPos: d.pos.toArray().map((v) => +v.toFixed(1)) };
+    });
+  },
+  camInfo() {
+    return {
+      pos: camera.position.toArray().map((v) => +v.toFixed(1)),
+      rot: [+camera.rotation.x.toFixed(3), +camera.rotation.y.toFixed(3)],
+      fov: camera.fov,
+      aspect: +camera.aspect.toFixed(3),
+      projM: [+camera.projectionMatrix.elements[0].toFixed(3), +camera.projectionMatrix.elements[5].toFixed(3)],
+      win: [window.innerWidth, window.innerHeight],
+      mwiStale: (() => {
+        const m = camera.matrixWorld.clone().invert();
+        const d = m.elements.map((v, i) => Math.abs(v - camera.matrixWorldInverse.elements[i])).reduce((a, b) => a + b, 0);
+        return +d.toFixed(4);
+      })(),
+    };
   },
   select(i = null) {
     debugSelect = i ?? 0;

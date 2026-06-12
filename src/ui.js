@@ -17,24 +17,30 @@ export class UI {
     this._labels = [];
     this._toastTimer = null;
     this._grainReady = false;
-    this._fadeAnim = null;
+    this._fade = null;
   }
 
-  // ----- fades -----
+  // ----- fades (game-loop driven so they keep working in hidden tabs) -----
 
   fadeTo(opacity, ms) {
-    const el = this.fader;
-    const from = parseFloat(getComputedStyle(el).opacity);
-    if (this._fadeAnim) this._fadeAnim.cancel();
-    const anim = el.animate([{ opacity: from }, { opacity }], {
-      duration: Math.max(ms, 1),
-      easing: 'ease-in-out',
-      fill: 'forwards',
+    const from = parseFloat(this.fader.style.opacity || getComputedStyle(this.fader).opacity);
+    if (this._fade) this._fade.resolve();
+    return new Promise((resolve) => {
+      this._fade = { from, to: opacity, dur: Math.max(ms, 1) / 1000, t: 0, resolve };
     });
-    this._fadeAnim = anim;
-    return anim.finished.catch(() => {}).then(() => {
-      el.style.opacity = opacity;
-    });
+  }
+
+  update(dt) {
+    const f = this._fade;
+    if (!f) return;
+    f.t += dt;
+    const k = Math.min(f.t / f.dur, 1);
+    const e = k * k * (3 - 2 * k);
+    this.fader.style.opacity = (f.from + (f.to - f.from) * e).toFixed(4);
+    if (k >= 1) {
+      this._fade = null;
+      f.resolve();
+    }
   }
 
   // ----- title -----

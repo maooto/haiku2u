@@ -142,11 +142,11 @@ const SKY_FRAG = /* glsl */ `
 `;
 
 const PARTICLE_VERT = /* glsl */ `
-  uniform float uTime, uSize, uFall, uRise, uSwirl;
+  uniform float uTime, uSize, uFall, uRise, uSwirl, uMaxScale;
   uniform vec3 uCenter, uBox;
-  uniform vec2 uWind;
+  uniform vec2 uWind, uNearFade;
   attribute vec4 aSeed;
-  varying float vRot, vTint, vPulse;
+  varying float vRot, vTint, vPulse, vNear;
   void main() {
     vec3 p = position;
     float t = uTime * (0.7 + aSeed.x * 0.6);
@@ -160,14 +160,16 @@ const PARTICLE_VERT = /* glsl */ `
     vTint = aSeed.x;
     vPulse = 0.55 + 0.45 * sin(uTime * (1.5 + aSeed.y * 2.0) + aSeed.z * 6.28);
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
-    gl_PointSize = uSize * (170.0 / max(-mv.z, 0.1));
+    float dist = max(-mv.z, 0.05);
+    gl_PointSize = min(uSize * (170.0 / dist), uSize * uMaxScale);
+    vNear = smoothstep(uNearFade.x, uNearFade.y, dist); // fade out particles brushing the lens
     gl_Position = projectionMatrix * mv;
   }
 `;
 
 const PETAL_FRAG = /* glsl */ `
   uniform vec3 uColorA, uColorB;
-  varying float vRot, vTint, vPulse;
+  varying float vRot, vTint, vPulse, vNear;
   void main() {
     vec2 pc = gl_PointCoord - 0.5;
     float c = cos(vRot), s = sin(vRot);
@@ -176,6 +178,7 @@ const PETAL_FRAG = /* glsl */ `
     float d = dot(e, e);
     float a = smoothstep(1.0, 0.72, d);
     a *= smoothstep(0.10, 0.20, length(pc - vec2(0.0, 0.33)));
+    a *= vNear;
     if (a < 0.03) discard;
     gl_FragColor = vec4(mix(uColorA, uColorB, vTint), a * 0.9);
   }
@@ -184,10 +187,10 @@ const PETAL_FRAG = /* glsl */ `
 const GLOW_FRAG = /* glsl */ `
   uniform vec3 uColorA, uColorB;
   uniform float uAlpha;
-  varying float vRot, vTint, vPulse;
+  varying float vRot, vTint, vPulse, vNear;
   void main() {
     float d = length(gl_PointCoord - 0.5) * 2.0;
-    float a = pow(clamp(1.0 - d, 0.0, 1.0), 2.4) * vPulse * uAlpha;
+    float a = pow(clamp(1.0 - d, 0.0, 1.0), 2.4) * vPulse * uAlpha * vNear;
     if (a < 0.01) discard;
     gl_FragColor = vec4(mix(uColorA, uColorB, vTint), a);
   }
@@ -521,12 +524,12 @@ class Kit {
     const sg = new THREE.CylinderGeometry(0.012, 0.018, 0.34, 4);
     sg.translate(0, 0.17, 0);
     parts.push(this._coloredGeo(sg, (c) => c.set(stem)));
-    const hg = new THREE.IcosahedronGeometry(0.075, 0);
-    hg.scale(1, 0.55, 1);
-    hg.translate(0, 0.36, 0);
+    const hg = new THREE.IcosahedronGeometry(0.052, 0);
+    hg.scale(1.25, 0.4, 1.25);
+    hg.translate(0, 0.355, 0);
     parts.push(this._coloredGeo(hg, (c) => c.set(petal)));
-    const cg = new THREE.IcosahedronGeometry(0.028, 0);
-    cg.translate(0, 0.40, 0);
+    const cg = new THREE.IcosahedronGeometry(0.02, 0);
+    cg.translate(0, 0.385, 0);
     parts.push(this._coloredGeo(cg, (c) => c.set(center)));
     const merged = mergeGeometries(parts.map((g) => g.toNonIndexed()), false);
     parts.forEach((g) => g.dispose());
@@ -593,7 +596,7 @@ class Kit {
 
   // ----- particles -----
 
-  _particles({ count, box, center = [0, 0, 0], size, frag, uniforms, blending = THREE.NormalBlending }) {
+  _particles({ count, box, center = [0, 0, 0], size, frag, uniforms, blending = THREE.NormalBlending, nearFade = [1.2, 7.0], maxScale = 5.5 }) {
     const geo = new THREE.BufferGeometry();
     const pos = new Float32Array(count * 3);
     const seed = new Float32Array(count * 4);
@@ -623,6 +626,8 @@ class Kit {
         uColorA: { value: new THREE.Color('#ffffff') },
         uColorB: { value: new THREE.Color('#ffffff') },
         uAlpha: { value: 1 },
+        uNearFade: { value: new THREE.Vector2(nearFade[0], nearFade[1]) },
+        uMaxScale: { value: maxScale },
         ...uniforms,
       },
     });
@@ -631,8 +636,8 @@ class Kit {
     return this.add(points);
   }
 
-  petals({ count = 900, box = [320, 70, 320], center = [0, 28, 0], colorA = '#e86a4a', colorB = '#f4b46a', size = 5.5, fall = 0.55, wind = [2.2, 0.8], swirl = 1.6 } = {}) {
-    const p = this._particles({ count, box, center, size, frag: PETAL_FRAG, uniforms: {} });
+  petals({ count = 900, box = [320, 70, 320], center = [0, 28, 0], colorA = '#e86a4a', colorB = '#f4b46a', size = 5.5, fall = 0.55, wind = [2.2, 0.8], swirl = 1.6, nearFade = [1.2, 7.0], maxScale = 5.5 } = {}) {
+    const p = this._particles({ count, box, center, size, frag: PETAL_FRAG, uniforms: {}, nearFade, maxScale });
     p.material.uniforms.uColorA.value.set(colorA);
     p.material.uniforms.uColorB.value.set(colorB);
     p.material.uniforms.uFall.value = fall;
