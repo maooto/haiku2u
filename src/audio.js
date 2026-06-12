@@ -442,26 +442,22 @@ export class AudioSys {
 
   // Recites the three lines slowly. Calls onLine(i) as each line begins.
   // Resolves when the reading (or the koto fallback) has finished.
-  async recite(lines, { onLine } = {}) {
+  // Pass wait (game-time scheduler) so it works correctly in hidden tabs.
+  async recite(lines, { onLine, wait: gameWait } = {}) {
+    const delay = gameWait || ((ms) => new Promise((r) => setTimeout(r, ms)));
     const voice = await this._pickVoice();
-    if (!voice) return this._reciteFallback(lines, { onLine });
+    if (!voice) return this._reciteFallback(lines, { onLine, delay });
 
-    return new Promise((resolve) => {
+    let revealed = 0;
+    const speech = new Promise((resolve) => {
       let i = 0;
       let settled = false;
-      const finish = () => {
-        if (!settled) {
-          settled = true;
-          clearTimeout(watchdog);
-          resolve();
-        }
-      };
-      // if speech stalls silently (it happens), don't hang the finale
-      const watchdog = setTimeout(finish, lines.length * 9000);
+      const finish = () => { if (!settled) { settled = true; resolve(); } };
       const speakNext = () => {
         if (i >= lines.length) return finish();
         const idx = i++;
         onLine?.(idx);
+        revealed = idx + 1;
         const u = new SpeechSynthesisUtterance(lines[idx]);
         u.voice = voice;
         u.lang = voice.lang;
@@ -469,32 +465,29 @@ export class AudioSys {
         u.pitch = 0.92;
         u.volume = 1;
         u.onend = () => setTimeout(speakNext, 1050);
-        u.onerror = () => {
-          // fall back to chimes for the remaining lines
-          this.koto(idx + 1, 0, 0.25);
-          setTimeout(speakNext, 2600);
-        };
+        u.onerror = () => { this.koto(idx + 1, 0, 0.25); setTimeout(speakNext, 2600); };
         speechSynthesis.speak(u);
       };
-      try {
-        speechSynthesis.cancel(); // clear any stuck queue
-      } catch {
-        /* ignore */
-      }
+      try { speechSynthesis.cancel(); } catch { /* ignore */ }
       speakNext();
     });
+    // Hidden-tab guard: game-time timeout fires when TTS is suspended.
+    // Reveal any lines that weren't reached, then let the race resolve.
+    const timeout = delay(lines.length * 5000 + 4000).then(() => {
+      for (let i = revealed; i < lines.length; i++) onLine?.(i);
+    });
+    return Promise.race([speech, timeout]);
   }
 
-  _reciteFallback(lines, { onLine } = {}) {
-    return new Promise((resolve) => {
-      lines.forEach((_, i) => {
-        setTimeout(() => {
-          onLine?.(i);
-          this.koto(i * 2, 0, 0.28);
-          this.koto(i * 2 + 3, 0.4, 0.2);
-        }, i * 3400);
-      });
-      setTimeout(resolve, lines.length * 3400 + 1200);
-    });
+  _reciteFallback(lines, { onLine, delay = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
+    return (async () => {
+      for (let i = 0; i < lines.length; i++) {
+        onLine?.(i);
+        this.koto(i * 2, 0, 0.28);
+        this.koto(i * 2 + 3, 0.4, 0.2);
+        await delay(3400);
+      }
+      await delay(1200);
+    })();
   }
 }
