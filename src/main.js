@@ -215,7 +215,7 @@ async function playRound(firstRound) {
     endFov: 62,
   });
   await wait(2200);
-  const recital = audio.recite(chosen, { onLine: (i) => ui.revealPoemLine(i) });
+  const recital = audio.recite(chosen, { onLine: (i) => ui.revealPoemLine(i), wait });
   await Promise.all([flight, recital]);
   await wait(600);
   audio.woodblocks(2);
@@ -355,6 +355,7 @@ installDebug({
     debugSelect = i ?? 0;
   },
   pressSelect() {
+    input._fireGesture();
     input._select = true;
   },
   goto(biomeName, themeName) {
